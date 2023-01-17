@@ -1,0 +1,17 @@
+{
+  "type": "cors",
+  "url": "http: //localhost:3001/api/v1/orders/3",
+  "redirected": false,
+  "status": 404,
+  "ok": false,
+  "body": {},
+  "bodyUsed": false,
+  "headers": {
+    "ok": false,
+    "redirected": false,
+    "status": 404,
+    "statusText": "No Content",
+    "type": "cors",
+    "url": "http://localhost:3001/api/v1/orders/3"
+  }
+}

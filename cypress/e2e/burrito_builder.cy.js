@@ -35,9 +35,12 @@ describe('Burrito Builder UI', () => {
       .should('contain', 'carnitas', 'beans', 'cilantro')
   })
 
-  // it('should be able to delete an order', () => {
-
-  // })
+  it('should be able to delete an order', () => {
+    cy.submitOrder()
+    cy.intercept('http://localhost:3001/api/v1/orders/3', { fixture: "../fixtures/deleteresponse.json" })
+    cy.get('.order').eq(2).find('.delete-order').click()
+    cy.get('.order').find('h3').contains('Terry').should('not.exist')
+  })
 })
 
 describe('Burrito Builder Sad Path Stuff', () => {
@@ -63,4 +66,11 @@ describe('Burrito Builder Sad Path Stuff', () => {
     cy.get('.alert-button').click()
     cy.get('.alert-message').should('not.exist')
   })
+
+  // it('should alert user if an order was not deleted', () => {
+  //   cy.submitOrder()
+  //   cy.intercept('http://localhost:3001/api/v1/orders/3', { fixture: "../fixtures/baddeleteresponse.json" })
+  //   cy.get('.order').eq(2).find('.delete-order').click()
+  //   cy.get('.App').should('contain', 'That order was not deleted for some reason!')
+  // })
 })
