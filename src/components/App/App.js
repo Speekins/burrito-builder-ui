@@ -23,13 +23,24 @@ class App extends Component {
 
   submitOrder = (body) => {
     postOrder(body)
-    .then(data => this.setState({ orders: [...this.state.orders, data]}))
-    .then(() => console.log(this.state.orders))
+      .then(data => this.setState({ orders: [...this.state.orders, data] }))
+      .then(() => console.log(this.state.orders))
   }
 
   handleDelete = (id) => {
     deleteOrder(id)
-    .then()
+      .then(response => {
+        const filteredOrders = this.state.orders.filter(order => order.id !== id)
+        if (response.ok) {
+          this.setState({ orders: filteredOrders })
+        } else {
+          this.setState({ error: true })
+        }
+      })
+  }
+
+  clearError = () => {
+    this.setState({ error: false })
   }
 
   render() {
@@ -37,9 +48,14 @@ class App extends Component {
       <main className="App">
         <header>
           <h1>Burrito Builder</h1>
-          <OrderForm submitOrder={this.submitOrder}/>
+          <OrderForm submitOrder={this.submitOrder} />
         </header>
-        <Orders orders={this.state.orders} />
+        <Orders
+          orders={this.state.orders}
+          handleDelete={this.handleDelete}
+          clearError={this.clearError}
+          error={this.state.error}
+        />
       </main>
     )
   }

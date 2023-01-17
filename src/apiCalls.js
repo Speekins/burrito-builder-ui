@@ -13,7 +13,8 @@ const postOrder = (body) => {
 }
 
 const deleteOrder = (id) => {
-  return fetch(`http://localhost:3001/api/v1/orders/${id}`)
+  console.log(id)
+  return fetch(`http://localhost:3001/api/v1/orders/${id}`, { method: "DELETE" })
 }
 
 export { getOrders, postOrder, deleteOrder }
