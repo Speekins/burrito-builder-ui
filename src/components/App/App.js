@@ -8,7 +8,8 @@ class App extends Component {
   constructor(props) {
     super()
     this.state = {
-      orders: []
+      orders: [],
+      error: false
     }
   }
 
@@ -21,10 +22,14 @@ class App extends Component {
   }
 
   submitOrder = (body) => {
-    console.log(body)
     postOrder(body)
     .then(data => this.setState({ orders: [...this.state.orders, data]}))
     .then(() => console.log(this.state.orders))
+  }
+
+  handleDelete = (id) => {
+    deleteOrder(id)
+    .then()
   }
 
   render() {

@@ -4,6 +4,10 @@ describe('Burrito Builder UI', () => {
     cy.visit('http://localhost:3000')
   })
 
+  it('should show the page title', () => {
+    cy.get('h1').should('contain', 'Burrito Builder')
+  })
+
   it('should show current orders', () => {
     cy.get('.order').first().find('h3').should('contain', 'Gary')
     cy.get('.order').eq(1).find('h3').should('contain', 'Jerry')
@@ -44,15 +48,19 @@ describe('Burrito Builder Sad Path Stuff', () => {
   it('should alert user is no name is entered', () => {
     cy.get('button[name="cilantro"]').click()
     cy.get('.submit-button').click()
-    cy.get('.alert').find('.alert-message').should('contain', 'UH OH! Looks like you haven\'t added a name or ingredients!')
     cy.get('.alert-message').should('be.visible')
+    cy.get('.alert').find('.alert-message').should('contain', 'UH OH! Looks like you haven\'t added a name or ingredients!')
   })
 
-  // it('should alert the user if no ingredients have been selected', () => {
+  it('should alert the user if no ingredients have been selected', () => {
+    cy.get('.submit-button').click()
+    cy.get('.alert-message').should('be.visible')
+    cy.get('.alert').find('.alert-message').should('contain', 'UH OH! Looks like you haven\'t added a name or ingredients!')
+  })
 
-  // })
-
-  // it('should hide alert message after informing the user', () => {
-
-  // })
+  it('should hide alert message after informing the user', () => {
+    cy.get('.submit-button').click()
+    cy.get('.alert-button').click()
+    cy.get('.alert-message').should('not.exist')
+  })
 })

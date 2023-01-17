@@ -60,7 +60,7 @@ class OrderForm extends Component {
         {ingredientButtons}
 
         {this.state.error &&
-          <div className='alert-message'>
+          <div className='alert'>
             <h1 className='alert-message'>UH OH! Looks like you haven't added a name or ingredients!</h1>
             <button className='alert-button' onClick={() => this.setState({ error: false })}>Oops! Got It!</button>
           </div>
