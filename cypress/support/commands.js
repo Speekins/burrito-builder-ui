@@ -10,7 +10,14 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add('submitOrder', () => {
+  cy.get('input[name="name"]').type('Terry')
+  cy.get('button[name="carnitas"]').click()
+  cy.get('button[name="beans"]').click()
+  cy.get('button[name="cilantro"]').click()
+  cy.intercept('http://localhost:3001/api/v1/orders', { fixture: '../fixtures/orderpost.json' })
+  cy.get('.submit-button').click()
+})
 //
 //
 // -- This is a child command --
